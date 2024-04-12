@@ -10,11 +10,16 @@ import {
 import axios from "axios";
 import { LOGIN_USER_SUCCESS } from "../constants/userConstants";
 
+export const API_URL = "http://localhost:4000";
+
 export const passwordForgot = (email) => async (dispatch) => {
   try {
     dispatch({ type: FORGOT_PASSWORD_REQUEST });
 
-    const { data } = await axios.post("/api/v1/user/forgot/password", email);
+    const { data } = await axios.post(
+      `${API_URL}/api/v1/user/forgot/password`,
+      email
+    );
 
     dispatch({
       type: FORGOT_PASSWORD_SUCCESS,
@@ -32,9 +37,12 @@ export const passwordReset = (token, password) => async (dispatch) => {
   try {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
-    const { data } = await axios.put(`/api/v1/user/reset/password/${token}`, {
-      password,
-    });
+    const { data } = await axios.put(
+      `${API_URL}/api/v1/user/reset/password/${token}`,
+      {
+        password,
+      }
+    );
 
     dispatch({
       type: RESET_PASSWORD_SUCCESS,

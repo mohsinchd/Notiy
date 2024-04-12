@@ -9,6 +9,7 @@ import {
   DELETE_NOTE_SUCCESS,
   DELETE_NOTE_FAIL,
 } from "../constants/noteConstants";
+import { API_URL } from "./forgotPasswordActions";
 
 import axios from "axios";
 
@@ -18,7 +19,9 @@ export const noteCreate = (note) => async (dispatch) => {
       type: CREATE_NOTE_REQUEST,
     });
 
-    const { data } = await axios.post("/api/v1/note", note);
+    const { data } = await axios.post(`${API_URL}/api/v1/note`, note, {
+      withCredentials: true,
+    });
 
     dispatch({
       type: CREATE_NOTE_SUCCESS,
@@ -41,7 +44,10 @@ export const noteGet =
       });
 
       const { data } = await axios.get(
-        `/api/v1/note?page=${page}&keyword=${keyword}`
+        `${API_URL}/api/v1/note?page=${page}&keyword=${keyword}`,
+        {
+          withCredentials: true,
+        }
       );
 
       dispatch({
@@ -65,7 +71,9 @@ export const noteDelete = (id) => async (dispatch) => {
       type: DELETE_NOTE_REQUEST,
     });
 
-    const { data } = await axios.delete(`/api/v1/note/${id}`);
+    const { data } = await axios.delete(`${API_URL}/api/v1/note/${id}`, {
+      withCredentials: true,
+    });
 
     dispatch({
       type: DELETE_NOTE_SUCCESS,

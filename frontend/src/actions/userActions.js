@@ -10,6 +10,7 @@ import {
   REGISTER_USER_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
+import { API_URL } from "./forgotPasswordActions";
 
 export const userLogin = (userInfo) => async (dispatch) => {
   try {
@@ -17,7 +18,13 @@ export const userLogin = (userInfo) => async (dispatch) => {
       type: LOGIN_USER_REQUEST,
     });
 
-    const { data } = await axios.post("/api/v1/user/login", userInfo);
+    const { data } = await axios.post(
+      `${API_URL}/api/v1/user/login`,
+      userInfo,
+      {
+        withCredentials: true,
+      }
+    );
 
     dispatch({
       type: LOGIN_USER_SUCCESS,
@@ -39,7 +46,9 @@ export const userLogout = () => async (dispatch) => {
       type: LOGOUT_USER_REQUEST,
     });
 
-    const { data } = await axios.get("/api/v1/user/logout");
+    const { data } = await axios.get(`${API_URL}/api/v1/user/logout`, {
+      withCredentials: true,
+    });
 
     dispatch({
       type: LOGOUT_USER_SUCCESS,
@@ -61,7 +70,13 @@ export const userRegister = (userInfo) => async (dispatch) => {
       type: REGISTER_USER_REQUEST,
     });
 
-    const { data } = await axios.post("/api/v1/user/register", userInfo);
+    const { data } = await axios.post(
+      `${API_URL}/api/v1/user/register`,
+      userInfo,
+      {
+        withCredentials: true,
+      }
+    );
 
     dispatch({
       type: REGISTER_USER_SUCCESS,
